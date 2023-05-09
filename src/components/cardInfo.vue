@@ -13,7 +13,7 @@ export default {
   },
   computed: {
     checkStatus() {
-      return (this.userObj.status != 'Finalizado') ? 'bg-red-100' : 'bg-lime-100';
+      return (this.userObj.status.toLowerCase() != 'finalizado') ? 'bg-red-100' : 'bg-lime-100';
     }
   }
 }

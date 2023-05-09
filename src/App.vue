@@ -10,7 +10,7 @@ export default {
       legalInfo : null,
       filterInfo: '',
       sheetId : '1XNm_TwBSTVMLYyQjNxjAl5Ap-O_tz5V3SAio9ABkU9Q',
-      range : 'A1:E31',
+      range : 'A1:E310',
       apiKey : 'AIzaSyBntcJlSAQ93d5Ycam0pYJATI59lWFCvCk',
       errorText : ''
     }
@@ -34,9 +34,6 @@ export default {
       .catch(error => {
         console.error(error)
       })
-      
-      
-      // return (this.filterInfo != '') ? this.clientInfo = true : this.clientInfo = false
     },
   }
 }
