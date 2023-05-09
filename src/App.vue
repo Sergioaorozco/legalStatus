@@ -52,7 +52,7 @@ export default {
     </figure>
     <section class="mt-14 w-11/12 lg:w-auto" v-if="clientInfo" v-motion-slide-bottom>
       <cardInfo v-for="card in legalInfo" class="my-4" :userObj="card"/>
-      <p v-if="errorText" class="px-4 py-1 bg-red-100 lg:text-xl text-md text-red-950 mix-blend-multiply rounded-full">{{errorText}}</p>
+      <p v-if="errorText" class="lg:px-4 px-2 py-1 bg-red-100 lg:text-xl text-md text-red-950 mix-blend-multiply rounded-full">{{errorText}}</p>
     </section>
   </div>
 </template>
