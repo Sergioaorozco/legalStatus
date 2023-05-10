@@ -10,9 +10,9 @@ export default {
       legalInfo : null,
       isLoading: false,
       filterInfo: '',
-      sheetId : import.meta.env.VITE_SHEET_ID,
       range : 'A1:E310',
       apiKey : import.meta.env.VITE_API_KEY,
+      sheetId : import.meta.env.VITE_SHEET_ID,
       errorText : ''
     }
   },
