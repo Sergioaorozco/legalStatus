@@ -24,7 +24,7 @@ export default {
     validateUser() {
       this.clientInfo = false
       this.isLoading = true
-      const url = `https://sheets.googleapis.com/v4/spreadsheets/${import.meta.env.VITE_SHEET_ID}/values/${this.range}?key=${import.meta.env.VITE_API_KEY}`
+      const url = `https://sheets.googleapis.com/v4/spreadsheets/${this.sheetId}/values/${this.range}?key=${this.apiKey}`
       axios.get(url)
       .then(response => {
         this.clientInfo = true
