@@ -7,6 +7,7 @@ import PrimeVue from 'primevue/config';
 import 'primeicons/primeicons.css';
 import 'primevue/resources/themes/lara-light-blue/theme.css';
 import 'primevue/resources/primevue.min.css';
+import ProgressSpinner from 'primevue/progressspinner';
 import { MotionPlugin } from '@vueuse/motion'
 
 
@@ -14,8 +15,9 @@ import { MotionPlugin } from '@vueuse/motion'
 
 const app = createApp(App);
 
-app.mount('#app')
 app.use(PrimeVue);
 app.use(MotionPlugin);
+app.component('ProgressSpinner',ProgressSpinner);
 app.directive('motion-slide-bottom');
+app.mount('#app')
 

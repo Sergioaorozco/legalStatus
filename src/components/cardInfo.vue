@@ -1,10 +1,5 @@
 <script>
 export default {
-  data() {
-    return {
-      badgeColor: ''
-    }
-  },
   props: {
     userObj: null,
   },
