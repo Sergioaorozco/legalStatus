@@ -12,8 +12,8 @@ export default {
       filterInfo: '',
       range : 'A1:E310',
       errorText : '',
-      apiKey : import.meta.env.PROD.VUE_APP_API_KEY,
-      sheetId : import.meta.env.VUE_APP_SHEET_ID,
+      apiKey : import.meta.env.VITE_API_KEY,
+      sheetId : import.meta.env.VITE_SHEET_ID,
     }
   },
    components: {
@@ -24,7 +24,7 @@ export default {
     validateUser() {
       this.clientInfo = false
       this.isLoading = true
-      const url = `https://sheets.googleapis.com/v4/spreadsheets/${this.sheetId}/values/${this.range}?key=${this.apiKey}`
+      const url = `https://sheets.googleapis.com/v4/spreadsheets/${import.meta.env.VITE_SHEET_ID}/values/${this.range}?key=${import.meta.env.VITE_API_KEY}`
       axios.get(url)
       .then(response => {
         this.clientInfo = true
