@@ -2,8 +2,8 @@
 import LegalSearch from './components/LegalSearch.vue'
 import cardInfo from './components/cardInfo.vue'
 import axios from 'axios'
-const sheetId = import.meta.env.production.VITE_SHEET_ID;
-const apiKey = import.meta.env.production.VITE_API_KEY;
+const sheetId = import.meta.env.VITE_SHEET_ID;
+const apiKey = import.meta.env.VITE_API_KEY;
 
 export default {
   data() {
