@@ -11,9 +11,9 @@ export default {
       isLoading: false,
       filterInfo: '',
       range : 'A1:E310',
+      errorText : '',
       apiKey : import.meta.env.VITE_API_KEY,
       sheetId : import.meta.env.VITE_SHEET_ID,
-      errorText : ''
     }
   },
    components: {
