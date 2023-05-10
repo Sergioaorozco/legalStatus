@@ -12,7 +12,8 @@ export default {
       legalInfo : null,
       isLoading: false,
       filterInfo: '',
-      range : 'A1:E310',
+      range1: 'statusInformation!A:E',
+      range2: 'Sheet2!A:E',
       errorText : '',
     }
   },
@@ -24,12 +25,13 @@ export default {
     validateUser() {
       this.clientInfo = false
       this.isLoading = true
-      const url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${this.range}?key=${apiKey}`
+      const url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values:batchGet?ranges=${this.range1}&ranges=${this.range2}&key=${apiKey}`
       axios.get(url)
       .then(response => {
         this.clientInfo = true
-        const data = response.data.values
-        const formattedData = data.slice(1).map(row => Object.fromEntries(data[0].map((key,index) => [key, row[index]] )))
+        const data = response.data.valueRanges
+        let mergedInformation = data.reduce((acc,sheet) => acc.concat(sheet.values), []);
+        const formattedData = mergedInformation.map(row => Object.fromEntries(mergedInformation[0].map((key,index) => [key, row[index]] )))
         this.legalInfo = formattedData.filter(item => item.user_id == this.filterInfo)
         this.isLoading = false
         return (!this.legalInfo.length) ? this.errorText = 'Este usuario no tiene procesos activos.' : this.errorText = ''
