@@ -27,7 +27,7 @@ export default {
       </div>
     </div>
     <i class="divider h-0.5 w-full lg:w-0.5 lg:h-full bg-slate-100"></i> <!--Divider-->
-    <div>
+    <div class="w-[180px]">
       <p>Tipo de Proceso:</p>
       <p class="font-semibold">{{userObj.type}}</p>
     </div>
