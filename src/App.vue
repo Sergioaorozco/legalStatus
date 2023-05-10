@@ -48,7 +48,7 @@ export default {
       <i class="pi pi-search absolute left-4 text-xl text-cyan-900"></i>
     </figure>
     <section class="mt-14 w-11/12 lg:w-auto" v-if="clientInfo" v-motion-slide-bottom>
-      <cardInfo v-for="card in legalInfo" class="my-4" :userObj="card"/>
+      <cardInfo v-for="card in legalInfo" class="my-6" :userObj="card"/>
       <p v-if="errorText" class="lg:px-4 px-2 py-1 bg-red-100 lg:text-xl text-md text-red-950 mix-blend-multiply rounded-full">{{errorText}}</p>
     </section>
   </div>
