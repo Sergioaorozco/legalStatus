@@ -21,7 +21,7 @@ export default {
 </script>
 
 <template>
-  <article class="text-center lg:text-inherit py-5 px-8 rounded-lg gap-3 flex flex-col lg:flex-row items-center justify-center bg-white shadow-md">
+  <article class="text-center lg:text-inherit py-5 px-8 rounded-lg gap-3 flex flex-col lg:flex-row items-center justify-between bg-white shadow-md">
     <figure class="w-12 h-12 rounded-full bg-orange-200 flex place-items-center justify-center">
       <i class="pi pi-user text-orange-900 text-3xl"></i>
     </figure>
