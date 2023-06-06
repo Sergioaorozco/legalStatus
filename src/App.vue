@@ -11,9 +11,10 @@ export default {
       clientInfo: false,
       legalInfo : null,
       isLoading: false,
+      historical: {},
       filterInfo: '',
-      range1: 'statusInformation!A:E',
-      range2: 'Sheet2!A:E',
+      range1: 'statusInformation!A:H',
+      range2: 'Sheet2!A:H',
       errorText : '',
     }
   },
@@ -31,10 +32,14 @@ export default {
         this.clientInfo = true
         const data = response.data.valueRanges
         let mergedInformation = data.reduce((acc,sheet) => acc.concat(sheet.values), []);
+        const uniqueContracts = new Set();
         const formattedData = mergedInformation.map(row => Object.fromEntries(mergedInformation[0].map((key,index) => [key, row[index]] )))
-        this.legalInfo = formattedData.filter(item => item.user_id == this.filterInfo)
+        this.legalInfo = formattedData.filter(item => item.CEDULA == this.filterInfo &&
+        uniqueContracts.has(item.CONTRATO) === false && 
+        uniqueContracts.add(item.CONTRATO))
+        this.historical = formattedData
         this.isLoading = false
-        return (!this.legalInfo.length) ? this.errorText = 'Este usuario no tiene procesos activos.' : this.errorText = ''
+        return (!this.legalInfo.length || null) ? this.errorText = 'Este usuario no tiene procesos activos.' : this.errorText = ''
       })
       .catch(error => {
         console.error(error)
@@ -47,7 +52,7 @@ export default {
 
 <template>
   <div class="centeredContent flex flex-col items-center lg:pt-24 pt-6">
-    <img src="../public/LogoMiDefensa.png" alt="logo Mi Defensa Abogados">
+    <img src="../LogoMiDefensa.png" alt="logo Mi Defensa Abogados">
     <LegalSearch msg="Mi Defensa Abogados"/>
     <figure class="mt-10 mb-10 lg:w-2/4 w-full relative flex items-center">
       <input @change="validateUser()" v-model="filterInfo" placeholder="Digita tu cédula sin puntos..." class="shadow-sm py-4 px-2 rounded-lg w-full pl-12 border-cyan-900 border" type="number" name="cedula" id="">
@@ -55,7 +60,7 @@ export default {
     </figure>
     <ProgressSpinner class="w-10 h-10" v-if="isLoading" strokeWidth="3" animationDuration="2s"></ProgressSpinner>
     <section class="mt-1 w-11/12 lg:w-auto" v-if="clientInfo" v-motion-slide-bottom>
-      <cardInfo v-for="card in legalInfo" class="my-6" :userObj="card"/>
+      <cardInfo v-for="card in legalInfo" class="my-6" :infoModal="this.historical"  :userObj="card"/>
       <p v-if="errorText" class="px-5 py-1 bg-red-100 lg:text-xl text-md text-red-950 mix-blend-multiply rounded-full text-center">{{errorText}}</p>
     </section>
   </div>
