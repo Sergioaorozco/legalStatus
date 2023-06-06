@@ -52,7 +52,7 @@ export default {
 
 <template>
   <div class="centeredContent flex flex-col items-center lg:pt-24 pt-6">
-    <img src="../LogoMiDefensa.png" alt="logo Mi Defensa Abogados">
+    <img src="/LogoMiDefensa.png" alt="logo Mi Defensa Abogados">
     <LegalSearch msg="Mi Defensa Abogados"/>
     <figure class="mt-10 mb-10 lg:w-2/4 w-full relative flex items-center">
       <input @change="validateUser()" v-model="filterInfo" placeholder="Digita tu cédula sin puntos..." class="shadow-sm py-4 px-2 rounded-lg w-full pl-12 border-cyan-900 border" type="number" name="cedula" id="">
