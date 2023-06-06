@@ -51,20 +51,8 @@ export default {
     </div>
     <i class="divider h-0.5 w-full lg:w-0.5 lg:h-full bg-slate-100"></i> <!--Divider-->
     <div>
-      <p>Estado del proceso:</p>
-      <p :class="checkStatus" class="mt-1 py-1 px-2 font-semibold rounded-md text-center">{{userObj.ESTATUS}}</p>
-    </div>
-    <i class="divider h-0.5 w-full lg:w-0.5 lg:h-full bg-slate-100"></i> <!--Divider-->
-    <div>
-      <p>Última Actuación:</p>
+      <p>Contrato:</p>
       <p class="font-semibold rounded-md text-center">{{userObj.ACTUACION}}</p>
-    </div>
-    <div>
-      <i class="divider h-0.5 w-full lg:w-0.5 lg:h-full bg-slate-100"></i> <!--Divider-->
-      <div v-if="userObj.ANEXOS">
-        <p>Anexos:</p>
-        <a class="font-semibold flex items-center hover:text-blue-700 text-blue-500 rounded-md text-center cursor-pointer" :href="userObj.ANEXOS" target="_blank"><i class="pi-link pi mr-1"></i> Link1</a>
-      </div>
     </div>
     <div class="contents">
       <i class="divider h-0.5 w-full lg:w-0.5 lg:h-full bg-slate-100"></i> <!--Divider-->
@@ -78,8 +66,16 @@ export default {
           <Column field="CONTRATO" header="Contrato"></Column>
           <Column field="PROCESO" header="Proceso"></Column>
           <Column field="ACTUACION" header="Fecha"></Column>
-          <Column field="ESTATUS" header="Estado"></Column>
-          <Column v-if="modalData.ANEXOS" field="ANEXOS" header="Anexos"></Column>
+          <Column field="ESTATUS" header="Estado">
+            <template #body="slotProps">
+              <p :class="checkStatus" class="mt-1 py-1 px-2 font-semibold rounded-md text-center">{{slotProps.data.ESTATUS}}</p>
+            </template>
+          </Column>
+          <Column field="ANEXOS" header="Anexos">
+            <template #body="slotProps">
+              <a class="font-semibold flex items-center hover:text-blue-700 text-blue-500 rounded-md text-center cursor-pointer" :href="userObj.ANEXOS" target="_blank"><i class="pi-link pi mr-1"></i> Link1</a>
+            </template>
+          </Column>
         </DataTable>
       </div>
     </Dialog>
