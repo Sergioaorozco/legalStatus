@@ -52,7 +52,7 @@ export default {
     <i class="divider h-0.5 w-full lg:w-0.5 lg:h-full bg-slate-100"></i> <!--Divider-->
     <div>
       <p>Contrato:</p>
-      <p class="font-semibold rounded-md text-center">{{userObj.ACTUACION}}</p>
+      <p class="font-semibold rounded-md text-center">{{userObj.CONTRATO}}</p>
     </div>
     <div class="contents">
       <i class="divider h-0.5 w-full lg:w-0.5 lg:h-full bg-slate-100"></i> <!--Divider-->
@@ -60,7 +60,7 @@ export default {
         <button class="text-blue-500 hover:text-blue-700" @click="checkModal">Ver Historial</button>
       </div>
     </div>
-    <Dialog v-model:visible="visible" modal header="Historial del proceso" class="py-5 w-4/5">
+    <Dialog dismissableMask v-model:visible="visible" modal header="Historial del proceso" class="w-4/5">
       <div class="py-5">
         <DataTable :value="modalData" class="sm">
           <Column field="CONTRATO" header="Contrato"></Column>
@@ -71,9 +71,9 @@ export default {
               <p :class="checkStatus" class="mt-1 py-1 px-2 font-semibold rounded-md text-center">{{slotProps.data.ESTATUS}}</p>
             </template>
           </Column>
-          <Column field="ANEXOS" header="Anexos">
+          <Column v-if="userObj.ANEXOS" field="ANEXOS" header="Anexos">
             <template #body="slotProps">
-              <a class="font-semibold flex items-center hover:text-blue-700 text-blue-500 rounded-md text-center cursor-pointer" :href="userObj.ANEXOS" target="_blank"><i class="pi-link pi mr-1"></i> Link1</a>
+              <a v-if="slotProps.data.ANEXOS" class="font-semibold flex items-center hover:text-blue-700 text-blue-500 rounded-md text-center cursor-pointer" :href="slotProps.data.ANEXOS" target="_blank"><i class="pi-link pi mr-1"></i>Ver Anexos</a>
             </template>
           </Column>
         </DataTable>
