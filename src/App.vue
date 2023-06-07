@@ -11,9 +11,9 @@ export default {
       clientInfo: false,
       legalInfo : null,
       isLoading: false,
-      historical: {},
+      historical: [],
       filterInfo: '',
-      range1: 'statusInformation!A:H',
+      range1: 'INVESTIGACIONES!A:H',
       range2: 'Sheet2!A:H',
       errorText : '',
     }
@@ -23,28 +23,41 @@ export default {
     cardInfo
    },
    methods: {
-    validateUser() {
-      this.clientInfo = false
-      this.isLoading = true
-      const url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values:batchGet?ranges=${this.range1}&ranges=${this.range2}&key=${apiKey}`
-      axios.get(url)
-      .then(response => {
-        this.clientInfo = true
-        const data = response.data.valueRanges
-        let mergedInformation = data.reduce((acc,sheet) => acc.concat(sheet.values), []);
+    async validateUser() {
+      try {
+        this.clientInfo = false;
+        this.isLoading = true;
+        const url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values:batchGet?ranges=${this.range1}&key=${apiKey}`;
+        const response = await axios.get(url);
+        this.clientInfo = true;
+        const { valueRanges } = response.data;
+        const mergedInformation = valueRanges.reduce((acc, sheet) => acc.concat(sheet.values), []);
+        const [header, ...rows] = mergedInformation;
+        const formattedData = rows.map(row => Object.fromEntries(header.map((key, index) => [key, row[index]])));
         const uniqueContracts = new Set();
-        const formattedData = mergedInformation.map(row => Object.fromEntries(mergedInformation[0].map((key,index) => [key, row[index]] )))
-        this.legalInfo = formattedData.filter(item => item.CEDULA == this.filterInfo &&
-        uniqueContracts.has(item.CONTRATO) === false && 
-        uniqueContracts.add(item.CONTRATO))
-        this.historical = formattedData
-        this.isLoading = false
-        return (!this.legalInfo.length || null) ? this.errorText = 'Este usuario no tiene procesos activos.' : this.errorText = ''
-      })
-      .catch(error => {
-        console.error(error)
-      })
-    },
+
+        // Filtering Data
+        this.legalInfo = formattedData.filter((item) => {
+          if (Number(item.CEDULA) !== this.filterInfo) return false;
+          if (uniqueContracts.has(item.CONTRATO)) {
+            return false;
+          } else {
+            uniqueContracts.add(item.CONTRATO);
+            return true;
+          }
+        });
+        this.historical = formattedData;
+        this.isLoading = false;
+        if (!this.legalInfo.length) {
+          this.errorText = 'Este usuario no tiene procesos activos.';
+        } else {
+          this.errorText = '';
+        }
+      } catch (error) {
+        console.error(error);
+      }
+      }
+
   },
 }
 
@@ -60,7 +73,7 @@ export default {
     </figure>
     <ProgressSpinner class="w-10 h-10" v-if="isLoading" strokeWidth="3" animationDuration="2s"></ProgressSpinner>
     <section class="mt-1 w-11/12 lg:w-auto" v-if="clientInfo" v-motion-slide-bottom>
-      <cardInfo v-for="card in legalInfo" class="my-6" :infoModal="this.historical"  :userObj="card"/>
+      <cardInfo v-for="card in legalInfo" class="my-6" :infoModal="historical"  :userObj="card"/>
       <p v-if="errorText" class="px-5 py-1 bg-red-100 lg:text-xl text-md text-red-950 mix-blend-multiply rounded-full text-center">{{errorText}}</p>
     </section>
   </div>

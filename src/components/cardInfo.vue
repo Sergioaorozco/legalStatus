@@ -15,7 +15,9 @@ export default {
   },
   methods: {
     checkModal() {
-      this.modalData = this.infoModal.filter(item => item.CONTRATO == this.userObj.CONTRATO);
+      const cedula = this.userObj.CEDULA;
+      const contrato = this.userObj.CONTRATO;
+      this.modalData = this.infoModal.filter(item => item.CEDULA === cedula && item.CONTRATO === contrato);
       this.visible = true;
     }
   },
@@ -26,7 +28,11 @@ export default {
   },
   computed: {
     checkStatus() {
-      return (this.userObj.ESTATUS.toLowerCase() != 'finalizado') ? 'bg-red-100' : 'bg-lime-100';
+      if(this.userObj.ESTATUS.toLowerCase() != 'EN TRAMITE') {
+        return 'bg-lime-100'
+      } else {
+        return 'bg-red-100'
+      }
     },
   }
 }
