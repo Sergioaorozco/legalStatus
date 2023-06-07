@@ -14,7 +14,9 @@ export default {
       historical: [],
       filterInfo: '',
       range1: 'INVESTIGACIONES!A:H',
-      range2: 'Sheet2!A:H',
+      range2: 'AUDIENCIAS%20PRESENCIALES!A:H',
+      range3: 'AUDIENCIAS%20VIRTUALES!A:H',
+      range4: 'ACCIDENTES!A:H',
       errorText : '',
     }
   },
@@ -27,7 +29,7 @@ export default {
       try {
         this.clientInfo = false;
         this.isLoading = true;
-        const url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values:batchGet?ranges=${this.range1}&key=${apiKey}`;
+        const url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values:batchGet?ranges=${this.range1}&ranges=${this.range2}&ranges=${this.range3}&ranges=${this.range4}&key=${apiKey}`;
         const response = await axios.get(url);
         this.clientInfo = true;
         const { valueRanges } = response.data;

@@ -72,7 +72,7 @@ export default {
           <Column field="CONTRATO" header="Contrato"></Column>
           <Column field="PROCESO" header="Proceso"></Column>
           <Column field="ACTUACION" header="Fecha"></Column>
-          <Column field="ESTATUS" header="Estado">
+          <Column class=" w-auto lg:w-96" field="ESTATUS" header="Estado">
             <template #body="slotProps">
               <p :class="checkStatus" class="mt-1 py-1 px-2 font-semibold rounded-md text-center">{{slotProps.data.ESTATUS}}</p>
             </template>
